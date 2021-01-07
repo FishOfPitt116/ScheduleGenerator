@@ -6,17 +6,14 @@ import src.Team;
 
 public class Main {
     public static void main(String[] args) {
-        Team teamLillian = new Team("Team Lillian");
 
         ArrayList<Team> tl = new ArrayList<Team>();
 
-        tl.add(teamLillian);
-
-        for(int i = 1; i <= 6; i++) {
+        for(int i = 0; i <= 30; i++) {
             tl.add(new Team("Team " + ((Integer) i).toString()));
         }
 
-        int gc = 1;
+        int gc = 82;
 
         League l = new League(tl, gc);
 

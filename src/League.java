@@ -23,10 +23,10 @@ public class League {
 
     public ArrayList<Game> setLeagueSchedule() {
         ArrayList<Game> ls = new ArrayList<Game>();
-
         int scheduleSize = (gameCount * teamCount)/2;
         int gamesScheduled = 0;
         int[] teamGamesScheduled = new int[teamCount];
+        int failureCount = 0;
         
         while (gamesScheduled < scheduleSize) {
            int homeNum = (int) (Math.random()*teamCount);
@@ -41,6 +41,15 @@ public class League {
                teamGamesScheduled[homeNum]++;
                teamGamesScheduled[awayNum]++;
                gamesScheduled++;
+           } else {
+               failureCount++;
+           }
+
+           if(failureCount > 10000) {
+               ls = new ArrayList<Game>();
+               gamesScheduled = 0;
+               teamGamesScheduled = new int[teamCount];
+               failureCount = 0;
            }
         }
 

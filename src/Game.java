@@ -37,4 +37,12 @@ public class Game {
     public String toString() {
         return away.toString() + " @ " + home.toString();
     }
+
+    public boolean equals(Game g) {
+        return g.getHome().equals(home) && g.getAway().equals(away);
+    }
+
+    public boolean areSameOpponents(Game g) {
+        return (g.getHome().equals(home) && g.getAway().equals(away)) || (g.getHome().equals(away) && g.getAway().equals(home));
+    }
 }

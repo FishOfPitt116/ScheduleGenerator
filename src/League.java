@@ -38,6 +38,8 @@ public class League {
 
            if(equalValidity && homeGameCtValidity && awayGameCtValidity) {
                ls.add(new Game(gamesScheduled, teamList.get(homeNum), teamList.get(awayNum)));
+               teamGamesScheduled[homeNum]++;
+               teamGamesScheduled[awayNum]++;
                gamesScheduled++;
            }
         }

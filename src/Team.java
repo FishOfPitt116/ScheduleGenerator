@@ -10,4 +10,8 @@ public class Team {
     public String toString() {
         return name;
     }
+
+    public boolean equals(Team t) {
+        return t.toString().equals(name);
+    }
 }

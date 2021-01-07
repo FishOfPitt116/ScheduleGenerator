@@ -33,4 +33,8 @@ public class Game {
     public String getMatchup() {
         return away.toString() + " @ " + home.toString();
     }
+
+    public String toString() {
+        return away.toString() + " @ " + home.toString();
+    }
 }

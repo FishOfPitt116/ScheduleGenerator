@@ -54,7 +54,7 @@ public class League {
 
     public void printLeagueSchedule() {
         for (int i = 0; i <= leagueSchedule.size() - 1; i++) {
-            System.out.println(leagueSchedule.get(i).toString());
+            System.out.println("Day " + leagueSchedule.get(i).getCalendarDate() + ": " + leagueSchedule.get(i).toString());
         }
     }
 

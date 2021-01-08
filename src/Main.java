@@ -5,15 +5,17 @@ import java.util.ArrayList;
 public class Main {
     public static void main(String[] args) {
 
-        ArrayList<Team> tl = new ArrayList<Team>();
+        ArrayList<Team> teamList = new ArrayList<Team>();
 
-        for(int i = 0; i <= 30; i++) {
-            tl.add(new Team("Team " + ((Integer) i).toString()));
+        for(int i = 0; i <= 3; i++) {
+            teamList.add(new Team("Team " + ((Integer) i).toString()));
         }
 
-        int gc = 82;
+        int gameCount = 6;
 
-        League l = new League(tl, gc);
+        int maxDuplicateGames = 2;
+
+        League l = new League(teamList, gameCount, maxDuplicateGames);
 
         l.printLeagueSchedule();
     }

@@ -11,12 +11,27 @@ public class League {
 
     private ArrayList<Game> leagueSchedule;
 
+    private int maxDuplicateGames;
+
 
     public League(ArrayList<Team> tl, int gc) {
         teamList = tl;
         teamCount = tl.size();
+        
+        gameCount = gc;
+
+        maxDuplicateGames = 0;
+
+        leagueSchedule = setLeagueSchedule();
+    }
+    
+    public League(ArrayList<Team> tl, int gc, int mdg) {
+        teamList = tl;
+        teamCount = tl.size();
 
         gameCount = gc;
+
+        maxDuplicateGames = mdg;
 
         leagueSchedule = setLeagueSchedule();
     }
@@ -32,12 +47,27 @@ public class League {
            int homeNum = (int) (Math.random()*teamCount);
            int awayNum = (int) (Math.random()*teamCount);
 
-           boolean equalValidity = homeNum != awayNum;
-           boolean homeGameCtValidity = teamGamesScheduled[homeNum] != gameCount;
-           boolean awayGameCtValidity = teamGamesScheduled[awayNum] != gameCount;
+           Game g = new Game(gamesScheduled, teamList.get(homeNum), teamList.get(awayNum));
 
-           if(equalValidity && homeGameCtValidity && awayGameCtValidity) {
-               ls.add(new Game(gamesScheduled, teamList.get(homeNum), teamList.get(awayNum)));
+           boolean equalValidity = homeNum != awayNum; //Team not playing itself
+           boolean homeGameCtValidity = teamGamesScheduled[homeNum] != gameCount; //Home team has played under the max # of games
+           boolean awayGameCtValidity = teamGamesScheduled[awayNum] != gameCount; //Away team has played under the max # of games
+           boolean matchupCountValidity = true;
+
+           int duplicationIndex = 0;
+           if (maxDuplicateGames != 0) {
+                for (int i = 0; i < ls.size(); i++) {
+                    if (ls.get(i).areSameOpponents(g)) {
+                        duplicationIndex++;
+                    }
+                    if (duplicationIndex >= maxDuplicateGames) {
+                        matchupCountValidity = false;
+                    }
+                }
+            }  //The teams have not yet played the maximum allowed games against each other for the season
+
+           if(equalValidity && homeGameCtValidity && awayGameCtValidity && matchupCountValidity) {
+               ls.add(g);
                teamGamesScheduled[homeNum]++;
                teamGamesScheduled[awayNum]++;
                gamesScheduled++;

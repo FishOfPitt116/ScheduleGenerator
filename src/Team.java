@@ -4,10 +4,12 @@ import java.util.ArrayList;
 
 public class Team {
     private String name;
+    private int id;
     private ArrayList<Game> schedule;
     
-    public Team(String n) {
+    public Team(String n, int id) {
         name = n;
+        this.id = id;
         schedule = new ArrayList<Game>();
     }
 
@@ -17,6 +19,10 @@ public class Team {
 
     public boolean equals(Team t) {
         return t.toString().equals(name);
+    }
+
+    public int getID() {
+        return id;
     }
 
     public int scheduleSize() {
@@ -34,7 +40,7 @@ public class Team {
     public int homeGamesScheduled() {
         int counter = 0;
         for (int i = 0; i <= schedule.size(); i++) {
-            if (schedule.get(i).getHome().equals(this)) {
+            if (schedule.get(i).getHome().getID() == id) {
                 counter++;
             }
         }
@@ -45,7 +51,7 @@ public class Team {
     public int awayGamesScheduled() {
         int counter = 0;
         for (int i = 0; i <= schedule.size(); i++) {
-            if (schedule.get(i).getAway().equals(this)) {
+            if (schedule.get(i).getAway().getID() == id) {
                 counter++;
             }
         }

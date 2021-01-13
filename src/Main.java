@@ -8,7 +8,7 @@ public class Main {
         ArrayList<Team> teamList = new ArrayList<Team>();
 
         for(int i = 0; i <= 3; i++) {
-            teamList.add(new Team("Team " + ((Integer) i).toString()));
+            teamList.add(new Team("Team " + ((Integer) i).toString(), i));
         }
 
         int gameCount = 6;

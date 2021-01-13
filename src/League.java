@@ -15,6 +15,8 @@ public class League {
 
     private int maxHomeGames;
 
+    private int maxAwayGames;
+
 
     public League(ArrayList<Team> tl, int gc, boolean ehag) {
         teamList = tl;
@@ -26,10 +28,13 @@ public class League {
 
         leagueSchedule = setLeagueSchedule();
 
-        if (ehag)
-            maxHomeGames = (gameCount+1)/2;
-        else
+        if (ehag) {
+            maxHomeGames = gameCount/2;
+            maxAwayGames = gameCount/2;
+        } else {
             maxHomeGames = 0;
+            maxAwayGames = 0;
+        }
     }
     
     public League(ArrayList<Team> tl, int gc, int mdg, boolean ehag) {
@@ -42,10 +47,13 @@ public class League {
 
         leagueSchedule = setLeagueSchedule();
 
-        if (ehag)
-            maxHomeGames = (gameCount+1)/2;
-        else   
+        if (ehag) {
+            maxHomeGames = gameCount/2;
+            maxAwayGames = gameCount/2;
+        } else {
             maxHomeGames = 0;
+            maxAwayGames = 0;
+        }
     }
 
     public ArrayList<Game> setLeagueSchedule() {
@@ -80,13 +88,18 @@ public class League {
                 }
             }  //The teams have not yet played the maximum allowed games against each other for the season
 
-            // boolean homeGamesValidity = true;
-            // if (maxHomeGames != 0) {
-            //     homeGamesValidity = teamList.get(homeNum).homeGamesScheduled() != maxHomeGames;
-            // }  //The home team has played under the minimum number of home games
+            boolean homeGamesValidity = true;
+            if (maxHomeGames != 0) {
+                homeGamesValidity = teamList.get(homeNum).homeGamesScheduled() != maxHomeGames;
+            } //The home team has played under the maximum number of home games
+
+            boolean awayGamesValidity = true;
+            if (maxAwayGames != 0) {
+                awayGamesValidity = teamList.get(awayNum).awayGamesScheduled() != maxAwayGames;
+            } // The away team has played under the maximum number of away games
             
 
-           if(equalValidity && homeGameCtValidity && awayGameCtValidity && matchupCountValidity /* && homeGamesValidity */) {
+           if(equalValidity && homeGameCtValidity && awayGameCtValidity && matchupCountValidity && homeGamesValidity && awayGamesValidity) {
                ls.add(g);
                teamList.get(homeNum).addToSchedule(g);
                teamList.get(awayNum).addToSchedule(g);

@@ -68,40 +68,22 @@ public class League {
 
            Game g = new Game(ls.size(), teamList.get(homeNum), teamList.get(awayNum));
 
-           boolean equalValidity = homeNum != awayNum; //Team not playing itself
+           boolean equalValidity = ValidityTests.equalValidity(g);
 
-           boolean homeGameCtValidity = teamList.get(homeNum).scheduleSize() != gameCount; //Home team has played under the max # of games
+           boolean gameCtValidity = ValidityTests.gameCtValidity(g, gameCount);
 
-           boolean awayGameCtValidity = teamList.get(awayNum).scheduleSize() != gameCount; //Away team has played under the max # of games
-
-           boolean matchupCountValidity = true;
-           int duplicationIndex = 0;
-           if (maxDuplicateGames != 0) {
-                for (int i = 0; i < ls.size(); i++) {
-                    if (ls.get(i).areSameOpponents(g)) {
-                        duplicationIndex++;
-                    }
-                    if (duplicationIndex >= maxDuplicateGames) {
-                        matchupCountValidity = false;
-                    }
-                }
-            }  //The teams have not yet played the maximum allowed games against each other for the season
-
-            boolean homeGamesValidity = true;
-            if (maxHomeGames != 0) {
-                homeGamesValidity = teamList.get(homeNum).homeGamesScheduled() != maxHomeGames;
-            } //The home team has played under the maximum number of home games
-
-            boolean awayGamesValidity = true;
-            if (maxAwayGames != 0) {
-                awayGamesValidity = teamList.get(awayNum).awayGamesScheduled() != maxAwayGames;
-            } // The away team has played under the maximum number of away games
+           boolean matchupCtValidity = ValidityTests.matchupCtValidity(g, ls, maxDuplicateGames);
+           
+           boolean homeGamesValidity = ValidityTests.homeGamesValidity(g, maxHomeGames);
+           
+           boolean awayGamesValidity = ValidityTests.awayGamesValidity(g, maxAwayGames);
             
 
-           if(equalValidity && homeGameCtValidity && awayGameCtValidity && matchupCountValidity && homeGamesValidity && awayGamesValidity) {
+           if(equalValidity && gameCtValidity && matchupCtValidity && homeGamesValidity && awayGamesValidity) {
                ls.add(g);
                teamList.get(homeNum).addToSchedule(g);
                teamList.get(awayNum).addToSchedule(g);
+               failureCount = 0;
            } else {
                failureCount++;
            }

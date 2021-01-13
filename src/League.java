@@ -26,15 +26,15 @@ public class League {
 
         maxDuplicateGames = 0;
 
-        leagueSchedule = setLeagueSchedule();
-
         if (ehag) {
-            maxHomeGames = gameCount/2;
-            maxAwayGames = gameCount/2;
+            maxHomeGames = (gameCount+1)/2;
+            maxAwayGames = (gameCount+1)/2;
         } else {
             maxHomeGames = 0;
             maxAwayGames = 0;
         }
+
+        leagueSchedule = setLeagueSchedule();
     }
     
     public League(ArrayList<Team> tl, int gc, int mdg, boolean ehag) {
@@ -45,8 +45,6 @@ public class League {
 
         maxDuplicateGames = mdg;
 
-        leagueSchedule = setLeagueSchedule();
-
         if (ehag) {
             maxHomeGames = gameCount/2;
             maxAwayGames = gameCount/2;
@@ -54,20 +52,21 @@ public class League {
             maxHomeGames = 0;
             maxAwayGames = 0;
         }
+        
+        leagueSchedule = setLeagueSchedule();
     }
 
     public ArrayList<Game> setLeagueSchedule() {
         ArrayList<Game> ls = new ArrayList<Game>();
         int scheduleSize = (gameCount * teamCount)/2;
-        int gamesScheduled = 0;
         //int[] teamGamesScheduled = new int[teamCount];
         int failureCount = 0;
         
-        while (gamesScheduled < scheduleSize) {
+        while (ls.size() < scheduleSize) {
            int homeNum = (int) (Math.random()*teamCount);
            int awayNum = (int) (Math.random()*teamCount);
 
-           Game g = new Game(gamesScheduled, teamList.get(homeNum), teamList.get(awayNum));
+           Game g = new Game(ls.size(), teamList.get(homeNum), teamList.get(awayNum));
 
            boolean equalValidity = homeNum != awayNum; //Team not playing itself
 
@@ -103,15 +102,13 @@ public class League {
                ls.add(g);
                teamList.get(homeNum).addToSchedule(g);
                teamList.get(awayNum).addToSchedule(g);
-               gamesScheduled++;
            } else {
                failureCount++;
            }
 
            if(failureCount > 100000) {
                ls = new ArrayList<Game>();
-               gamesScheduled = 0;
-               for (int i = 0; i <= teamList.size(); i++) {
+               for (int i = 0; i < teamList.size(); i++) {
                    teamList.get(i).clearSchedule();
                }
                failureCount = 0;

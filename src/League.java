@@ -13,8 +13,10 @@ public class League {
 
     private int maxDuplicateGames;
 
+    private int maxHomeGames;
 
-    public League(ArrayList<Team> tl, int gc) {
+
+    public League(ArrayList<Team> tl, int gc, boolean ehag) {
         teamList = tl;
         teamCount = tl.size();
         
@@ -23,9 +25,14 @@ public class League {
         maxDuplicateGames = 0;
 
         leagueSchedule = setLeagueSchedule();
+
+        if (ehag)
+            maxHomeGames = (gameCount+1)/2;
+        else
+            maxHomeGames = 0;
     }
     
-    public League(ArrayList<Team> tl, int gc, int mdg) {
+    public League(ArrayList<Team> tl, int gc, int mdg, boolean ehag) {
         teamList = tl;
         teamCount = tl.size();
 
@@ -34,13 +41,18 @@ public class League {
         maxDuplicateGames = mdg;
 
         leagueSchedule = setLeagueSchedule();
+
+        if (ehag)
+            maxHomeGames = (gameCount+1)/2;
+        else   
+            maxHomeGames = 0;
     }
 
     public ArrayList<Game> setLeagueSchedule() {
         ArrayList<Game> ls = new ArrayList<Game>();
         int scheduleSize = (gameCount * teamCount)/2;
         int gamesScheduled = 0;
-        int[] teamGamesScheduled = new int[teamCount];
+        //int[] teamGamesScheduled = new int[teamCount];
         int failureCount = 0;
         
         while (gamesScheduled < scheduleSize) {
@@ -50,10 +62,12 @@ public class League {
            Game g = new Game(gamesScheduled, teamList.get(homeNum), teamList.get(awayNum));
 
            boolean equalValidity = homeNum != awayNum; //Team not playing itself
-           boolean homeGameCtValidity = teamGamesScheduled[homeNum] != gameCount; //Home team has played under the max # of games
-           boolean awayGameCtValidity = teamGamesScheduled[awayNum] != gameCount; //Away team has played under the max # of games
-           boolean matchupCountValidity = true;
 
+           boolean homeGameCtValidity = teamList.get(homeNum).scheduleSize() != gameCount; //Home team has played under the max # of games
+
+           boolean awayGameCtValidity = teamList.get(awayNum).scheduleSize() != gameCount; //Away team has played under the max # of games
+
+           boolean matchupCountValidity = true;
            int duplicationIndex = 0;
            if (maxDuplicateGames != 0) {
                 for (int i = 0; i < ls.size(); i++) {
@@ -66,19 +80,27 @@ public class League {
                 }
             }  //The teams have not yet played the maximum allowed games against each other for the season
 
-           if(equalValidity && homeGameCtValidity && awayGameCtValidity && matchupCountValidity) {
+            // boolean homeGamesValidity = true;
+            // if (maxHomeGames != 0) {
+            //     homeGamesValidity = teamList.get(homeNum).homeGamesScheduled() != maxHomeGames;
+            // }  //The home team has played under the minimum number of home games
+            
+
+           if(equalValidity && homeGameCtValidity && awayGameCtValidity && matchupCountValidity /* && homeGamesValidity */) {
                ls.add(g);
-               teamGamesScheduled[homeNum]++;
-               teamGamesScheduled[awayNum]++;
+               teamList.get(homeNum).addToSchedule(g);
+               teamList.get(awayNum).addToSchedule(g);
                gamesScheduled++;
            } else {
                failureCount++;
            }
 
-           if(failureCount > 10000) {
+           if(failureCount > 100000) {
                ls = new ArrayList<Game>();
                gamesScheduled = 0;
-               teamGamesScheduled = new int[teamCount];
+               for (int i = 0; i <= teamList.size(); i++) {
+                   teamList.get(i).clearSchedule();
+               }
                failureCount = 0;
            }
         }
@@ -95,7 +117,7 @@ public class League {
 
     public void printLeagueSchedule() {
         for (int i = 0; i <= leagueSchedule.size() - 1; i++) {
-            System.out.println("Day " + leagueSchedule.get(i).getCalendarDate() + ": " + leagueSchedule.get(i).toString());
+            System.out.println(leagueSchedule.get(i).toString());
         }
     }
 

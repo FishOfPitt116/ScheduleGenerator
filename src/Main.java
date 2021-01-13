@@ -15,8 +15,18 @@ public class Main {
 
         int maxDuplicateGames = 2;
 
-        League l = new League(teamList, gameCount, maxDuplicateGames);
+        boolean evenHomeAwayGames = true;
+
+        League l = new League(teamList, gameCount, maxDuplicateGames, evenHomeAwayGames);
 
         l.printLeagueSchedule();
+
+        System.out.println();
+        System.out.println();
+
+        for (int i = 0; i < teamList.size(); i++) {
+            teamList.get(i).printTeamSchedule();
+            System.out.println();
+        }
     }
 }

@@ -28,12 +28,8 @@ public class Game {
         return away;
     }
 
-    public String getMatchup() {
-        return away.toString() + " @ " + home.toString();
-    }
-
     public String toString() {
-        return away.toString() + " @ " + home.toString();
+        return "Day " + getCalendarDate() + ": " + away.toString() + " @ " + home.toString();
     }
 
     public boolean equals(Game g) {

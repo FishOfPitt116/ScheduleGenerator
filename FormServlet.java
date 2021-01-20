@@ -7,10 +7,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@Servlet("html/formservlet")
+@WebServlet("webDirectory/formservlet.html")
 public class FormServlet extends HttpServlet {
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private static final long serialVersionUID = 1L;
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         String numberOfTeams = request.getParameter("teams");
         String numberOfGames = request.getParameter("games");
 
@@ -26,6 +29,8 @@ public class FormServlet extends HttpServlet {
 
         System.out.println("Number of Teams: " + numberOfTeams);
         System.out.println("Number of Games: " + numberOfGames);
+
+        response.setContentType("text/html");
 
         PrintWriter writer = response.getWriter();
 

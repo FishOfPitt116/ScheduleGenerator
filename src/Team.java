@@ -5,10 +5,18 @@ import java.util.ArrayList;
 public class Team {
     private String name;
     private ArrayList<Game> schedule;
+    private ArrayList<Section> memberships;
     
     public Team(String n) {
         name = n;
         schedule = new ArrayList<Game>();
+        memberships = new ArrayList<Section>();
+    }
+
+    public Team(String n, ArrayList<Section> m) {
+        name = n;
+        schedule = new ArrayList<Game>();
+        memberships = m;
     }
 
     public String toString() {

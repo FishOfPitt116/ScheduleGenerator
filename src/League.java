@@ -7,6 +7,8 @@ public class League {
 
     private int teamCount;
 
+    private ArrayList<Section> sections;
+
     private ArrayList<Team> teamList;
 
     private ArrayList<Game> leagueSchedule;
@@ -18,7 +20,7 @@ public class League {
     private int maxAwayGames;
 
 
-    public League(ArrayList<Team> tl, int gc, boolean ehag) {
+    public League(ArrayList<Team> tl, int gc, boolean ehag, ArrayList<Section> s) {
         teamList = tl;
         teamCount = tl.size();
         
@@ -35,6 +37,8 @@ public class League {
         }
 
         leagueSchedule = setLeagueSchedule();
+
+
     }
     
     public League(ArrayList<Team> tl, int gc, int mdg, boolean ehag) {

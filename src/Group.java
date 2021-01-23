@@ -1,9 +1,8 @@
 package src;
 
-public class Conference implements Section {
-     
-
-    public Group (String n, int rg, ArrayList<Team> tl) {
+public class Group implements Section {
+    
+    public Group (String n, int rg, ArrayList<Team> tl, boolean ehag, boolean eml) {
         name = n;
         requiredGames = rg;
         teamList = tl;
@@ -11,7 +10,7 @@ public class Conference implements Section {
     }
 
     public ArrayList<Game> requiredGames() {
-
+        
     }
 
     public ArrayList<Game> otherGames() {

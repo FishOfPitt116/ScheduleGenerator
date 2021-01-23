@@ -1,3 +1,5 @@
+package src;
+
 public class Game {
     private int date;
 

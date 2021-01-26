@@ -1,20 +1,19 @@
 package src;
 
-public class Division implements Section {
+public class Division {
     
 
-    public Division (String n, int rg, ArrayList<Team> tl) {
+    public Division (String n, int rg, int s) {
         name = n;
         requiredGames = rg;
-        teamList = tl;
-        size = tl.size();
+        size = s;
     }
 
-    public ArrayList<Game> requiredGames() {
+    // public ArrayList<Game> requiredGames() {
 
-    }
+    // }
 
-    public ArrayList<Game> otherGames() {
+    // public ArrayList<Game> otherGames() {
 
-    }
+    // }
 }

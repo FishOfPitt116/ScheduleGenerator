@@ -1,20 +1,20 @@
 package src;
 
-public class Conference implements Section {
+public class Conference {
      
 
-    public Group (String n, int rg, ArrayList<Team> tl) {
+    public Conference (String n, int rg, int s) {
         name = n;
         requiredGames = rg;
         teamList = tl;
-        size = tl.size();
+        size = s;
     }
 
-    public ArrayList<Game> requiredGames() {
+    // public ArrayList<Game> requiredGames() {
 
-    }
+    // }
 
-    public ArrayList<Game> otherGames() {
+    // public ArrayList<Game> otherGames() {
         
-    }
+    // }
 }

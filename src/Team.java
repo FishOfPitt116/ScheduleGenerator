@@ -5,18 +5,18 @@ import java.util.ArrayList;
 public class Team {
     private String name;
     private ArrayList<Game> schedule;
-    private ArrayList<Section> memberships;
+    private Conference membership;
     
     public Team(String n) {
         name = n;
         schedule = new ArrayList<Game>();
-        memberships = new ArrayList<Section>();
+        membership = null;
     }
 
-    public Team(String n, ArrayList<Section> m) {
+    public Team(String n, Conference m) {
         name = n;
         schedule = new ArrayList<Game>();
-        memberships = m;
+        membership = m;
     }
 
     public String toString() {
@@ -37,6 +37,14 @@ public class Team {
 
     public void clearSchedule() {
         schedule = new ArrayList<Game>();
+    }
+
+    public Conference getConference() {
+        return membership;
+    }
+
+    public ArrayList<Game> getScheudule() {
+        return schedule;
     }
 
     public int homeGamesScheduled() {

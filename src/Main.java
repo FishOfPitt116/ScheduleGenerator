@@ -7,24 +7,26 @@ public class Main {
 
         ArrayList<Team> teamList = new ArrayList<Team>();
 
+        Conference conference0 = new Conference("Atlantic", 2, 7);
+        Conference conference1 = new Conference("Coastal", 2, 7);
         // for(int i = 1; i <= 4; i++) {
         //     teamList.add(new Team("Team " + ((Integer) i).toString()));
         // }
-        teamList.add(new Team("Boston College"));
-        teamList.add(new Team("Clemson"));
-        teamList.add(new Team("Duke"));
-        teamList.add(new Team("Florida State"));
-        teamList.add(new Team("Georgia Tech"));
-        teamList.add(new Team("Louisville"));
-        teamList.add(new Team("Miami"));
-        teamList.add(new Team("North Carolina"));
-        teamList.add(new Team("NC State"));
-        teamList.add(new Team("Notre Dame"));
-        teamList.add(new Team("Pittsburgh"));
-        teamList.add(new Team("Syracuse"));
-        teamList.add(new Team("Virginia"));
-        teamList.add(new Team("Virginia Tech"));
-        teamList.add(new Team("Wake Forest"));
+        teamList.add(new Team("Boston College"), conference0);
+        teamList.add(new Team("Clemson"), conference0);
+        teamList.add(new Team("Duke"), conference1);
+        teamList.add(new Team("Florida State"), conference0);
+        teamList.add(new Team("Georgia Tech"), conference1);
+        teamList.add(new Team("Louisville"), conference0);
+        teamList.add(new Team("Miami"), conference1);
+        teamList.add(new Team("North Carolina"), conference1);
+        teamList.add(new Team("NC State"), conference0);
+        // teamList.add(new Team("Notre Dame"));
+        teamList.add(new Team("Pittsburgh"), conference1);
+        teamList.add(new Team("Syracuse"), conference0);
+        teamList.add(new Team("Virginia"), conference1);
+        teamList.add(new Team("Virginia Tech"), conference1);
+        teamList.add(new Team("Wake Forest"), conference0);
 
         int gameCount = 20;
 

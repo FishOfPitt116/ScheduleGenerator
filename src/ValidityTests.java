@@ -27,6 +27,22 @@ public class ValidityTests {
             return true;
     } // Teams have not yet played the maximum allowed games against each other for the season
 
+    public static boolean inConferenceMatchupCtValidity(Game g, ArrayList<Game> leagueSchedule) {
+        int maxDuplicateGames = g.getHome().getConference().getRequiredGames();
+        int duplicationIndex = 0;
+           if (maxDuplicateGames != 0) {
+                for (int i = 0; i < leagueSchedule.size(); i++) {
+                    if (leagueSchedule.get(i).areSameOpponents(g)) {
+                        duplicationIndex++;
+                    }
+                    if (duplicationIndex >= maxDuplicateGames) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+    } // Teams have not yet played the maximum allowed games against each other for the season, in the case the teams are in the same Conference
+
     public static boolean homeGamesValidity(Game g, int maxHomeGames) {
         if (maxHomeGames != 0) {
             return g.getHome().homeGamesScheduled() != maxHomeGames;
@@ -40,4 +56,40 @@ public class ValidityTests {
         }
         return true;
     } //The away team has played under the maximum number of away games
+
+    public static boolean homeOutOfConferenceCtValidity(Game g, int gc) {
+        Team t = g.getHome();
+        int counter = 0;
+        int limit = gc - ((t.getConference().getSize()-1) * t.getConference().getRequiredGames());
+        if (t.getConference().equals(null)) {
+            return true;
+        }
+        for (int i = 0; i < t.getSchedule(); i++) {
+            if (t.getSchedule().get(i).isInConference()) {
+                counter++;
+            }
+            if (counter == limit) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static boolean awayOutOfConferenceCtValidity(Game g, int gc) {
+        Team t = g.getAway();
+        int counter = 0;
+        int limit = gc - ((t.getConference().getSize()-1) * t.getConference().getRequiredGames());
+        if (t.getConference().equals(null)) {
+            return true;
+        }
+        for (int i = 0; i < t.getSchedule(); i++) {
+            if (t.getSchedule().get(i).isInConference()) {
+                counter++;
+            }
+            if (counter == limit) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

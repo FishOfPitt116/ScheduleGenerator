@@ -39,4 +39,8 @@ public class Game {
     public boolean areSameOpponents(Game g) {
         return (g.getHome().equals(home) && g.getAway().equals(away)) || (g.getHome().equals(away) && g.getAway().equals(home));
     }
+
+    public boolean isInConference() {
+        return home.getConference().equals(away.getConference());
+    }
 }

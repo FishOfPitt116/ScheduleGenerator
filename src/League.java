@@ -7,8 +7,6 @@ public class League {
 
     private int teamCount;
 
-    private ArrayList<Section> sections;
-
     private ArrayList<Team> teamList;
 
     private ArrayList<Game> leagueSchedule;
@@ -20,7 +18,7 @@ public class League {
     private int maxAwayGames;
 
 
-    public League(ArrayList<Team> tl, int gc, boolean ehag, ArrayList<Section> s) {
+    public League(ArrayList<Team> tl, int gc, boolean ehag) {
         teamList = tl;
         teamCount = tl.size();
         
@@ -77,13 +75,21 @@ public class League {
            boolean gameCtValidity = ValidityTests.gameCtValidity(g, gameCount);
 
            boolean matchupCtValidity = ValidityTests.matchupCtValidity(g, ls, maxDuplicateGames);
+
+           if (g.isInConference()) {
+                matchupCtValidity = ValidityTests.inConferenceMatchupCtValidity(g);
+           }
            
            boolean homeGamesValidity = ValidityTests.homeGamesValidity(g, maxHomeGames);
            
            boolean awayGamesValidity = ValidityTests.awayGamesValidity(g, maxAwayGames);
+
+           boolean homeOutOfConferenceCtValidity = ValidityTests.homeOutOfConferenceCtValidity(g, gameCount);
+
+           boolean awayOutOfConferenceCtValidity = ValidityTests.awayOutOfConferenceCtValidity(g, gameCount);
             
 
-           if(equalValidity && gameCtValidity && matchupCtValidity && homeGamesValidity && awayGamesValidity) {
+           if(equalValidity && gameCtValidity && matchupCtValidity && homeGamesValidity && awayGamesValidity && homeOutOfConferenceCtValidity && awayOutOfConferenceCtValidity) {
                ls.add(g);
                teamList.get(homeNum).addToSchedule(g);
                teamList.get(awayNum).addToSchedule(g);

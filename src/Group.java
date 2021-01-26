@@ -1,19 +1,18 @@
 package src;
 
-public class Group implements Section {
+public class Group {
     
-    public Group (String n, int rg, ArrayList<Team> tl, boolean ehag, boolean eml) {
+    public Group (String n, int rg, int s, boolean ehag, boolean eml) {
         name = n;
         requiredGames = rg;
-        teamList = tl;
-        size = tl.size();
+        size = s;
     }
 
-    public ArrayList<Game> requiredGames() {
+    // public ArrayList<Game> requiredGames() {
         
-    }
+    // }
 
-    public ArrayList<Game> otherGames() {
+    // public ArrayList<Game> otherGames() {
         
-    }
+    // }
 }

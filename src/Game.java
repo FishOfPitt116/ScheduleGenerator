@@ -1,20 +1,20 @@
 package src;
 
 public class Game {
-    private int date;
+    // private int date;
 
     private Team home;
     private Team away;
 
-    public Game(int gd, Team home, Team away) {
-        date = gd;
+    public Game(/*int gd, */Team home, Team away) {
+        // date = gd;
         this.home = home;
         this.away = away;
     }
 
-    public int getDate() {
-        return date;
-    }
+    // public int getDate() {
+    //     return date;
+    // }
 
     public String getCalendarDate() {
         return "Algorithm not yet finalized";

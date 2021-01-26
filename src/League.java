@@ -84,9 +84,9 @@ public class League {
            
            boolean awayGamesValidity = ValidityTests.awayGamesValidity(g, maxAwayGames);
 
-           boolean homeOutOfConferenceCtValidity = ValidityTests.homeOutOfConferenceCtValidity(g, gameCount);
+           boolean homeOutOfConferenceCtValidity = ValidityTests.homeOutOfConferenceValidity(g, gameCount);
 
-           boolean awayOutOfConferenceCtValidity = ValidityTests.awayOutOfConferenceCtValidity(g, gameCount);
+           boolean awayOutOfConferenceCtValidity = ValidityTests.awayOutOfConferenceValidity(g, gameCount);
             
 
            if(equalValidity && gameCtValidity && matchupCtValidity && homeGamesValidity && awayGamesValidity && homeOutOfConferenceCtValidity && awayOutOfConferenceCtValidity) {
@@ -98,12 +98,13 @@ public class League {
                failureCount++;
            }
 
-           if(failureCount > 100000) {
+           if(failureCount > 10000000) {
                ls = new ArrayList<Game>();
                for (int i = 0; i < teamList.size(); i++) {
                    teamList.get(i).clearSchedule();
                }
                failureCount = 0;
+               System.out.println("Schedule production failed. Retrying...");
            }
         }
 

@@ -27,6 +27,10 @@ public class Team {
         return t.toString().equals(name);
     }
 
+    public ArrayList<Game> getSchedule() {
+        return schedule;
+    }
+
     public int scheduleSize() {
         return schedule.size();
     }
@@ -41,10 +45,6 @@ public class Team {
 
     public Conference getConference() {
         return membership;
-    }
-
-    public ArrayList<Game> getScheudule() {
-        return schedule;
     }
 
     public int homeGamesScheduled() {

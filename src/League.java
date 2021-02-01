@@ -4,114 +4,62 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class League {
-    private int gameCount;
 
-    private int teamCount;
-
-    private ArrayList<Team> teamList;
+    private Settings settings;
 
     private ArrayList<Game> leagueSchedule;
 
-    private int maxDuplicateGames;
-
-    private int maxHomeGames;
-
-    private int maxAwayGames;
-
-
-    public League(ArrayList<Team> tl, int gc, boolean ehag) {
-        teamList = tl;
-        teamCount = tl.size();
-        
-        gameCount = gc;
-
-        maxDuplicateGames = 0;
-
-        if (ehag) {
-            maxHomeGames = (gameCount+1)/2;
-            maxAwayGames = (gameCount+1)/2;
-        } else {
-            maxHomeGames = 0;
-            maxAwayGames = 0;
-        }
+    public League(Settings s) {
+        settings = s;
 
         leagueSchedule = setLeagueSchedule();
-
-
     }
+
+
+    // public League(ArrayList<Team> tl, int gc, boolean ehag) {
+    //     teamList = tl;
+    //     teamCount = tl.size();
+        
+    //     gameCount = gc;
+
+    //     maxDuplicateGames = 0;
+
+    //     if (ehag) {
+    //         maxHomeGames = (gameCount+1)/2;
+    //         maxAwayGames = (gameCount+1)/2;
+    //     } else {
+    //         maxHomeGames = 0;
+    //         maxAwayGames = 0;
+    //     }
+
+    //     leagueSchedule = setLeagueSchedule();
+
+
+    // }
     
-    public League(ArrayList<Team> tl, int gc, int mdg, boolean ehag) {
-        teamList = tl;
-        teamCount = tl.size();
+    // public League(ArrayList<Team> tl, int gc, int mdg, boolean ehag) {
+    //     teamList = tl;
+    //     teamCount = tl.size();
 
-        gameCount = gc;
+    //     gameCount = gc;
 
-        maxDuplicateGames = mdg;
+    //     maxDuplicateGames = mdg;
 
-        if (ehag) {
-            maxHomeGames = gameCount/2;
-            maxAwayGames = gameCount/2;
-        } else {
-            maxHomeGames = 0;
-            maxAwayGames = 0;
-        }
+    //     if (ehag) {
+    //         maxHomeGames = gameCount/2;
+    //         maxAwayGames = gameCount/2;
+    //     } else {
+    //         maxHomeGames = 0;
+    //         maxAwayGames = 0;
+    //     }
         
-        leagueSchedule = setLeagueSchedule();
-    }
+    //     leagueSchedule = setLeagueSchedule();
+    // }
 
     public ArrayList<Game> setLeagueSchedule() {
-        ArrayList<Game> leagueSchedule = new ArrayList<Game>();
-        Collections.shuffle(teamList);
-        int scheduledGames = 0;
+        ArrayList<Game> ls = new ArrayList<Game>();
+        int scheduleSize = (settings.getGameCount() * settings.getLeagueSize())/2;
         int failureCount = 0;
-
-        while (scheduledGames <= (teamCount*gameCount)/2) {
-            for (int i = 0; i < teamList.size(); i++) {
-                for (int x = 0; x < teamList.size(); x++) {
-                    Game g = null;
-                    if (Math.random() < 0.5) {
-                        g = new Game(teamList.get(i), teamList.get(x));
-                    } else {
-                        g = new Game(teamList.get(x), teamList.get(i));
-                    }
-
-                    boolean equalValidity = ValidityTests.equalValidity(g);
-                    boolean gameCtValidity = ValidityTests.gameCtValidity(g, gameCount);
-                    boolean matchupCtValidity = ValidityTests.matchupCtValidity(g, leagueSchedule, maxDuplicateGames);
-                    if (g.isInConference()) {
-                        matchupCtValidity = ValidityTests.inConferenceMatchupCtValidity(g);
-                    }
-                    boolean homeGamesValidity = ValidityTests.homeGamesValidity(g, maxHomeGames);
-                    boolean awayGamesValidity = ValidityTests.awayGamesValidity(g, maxAwayGames);
-                    boolean homeOutOfConferenceValidity = ValidityTests.homeOutOfConferenceValidity(g, gameCount);
-                    boolean awayOutOfConferenceValidity = ValidityTests.awayOutOfConferenceValidity(g, gameCount);
-
-                    if (equalValidity && gameCtValidity && matchupCtValidity && homeGamesValidity && awayGamesValidity && homeOutOfConferenceValidity && awayOutOfConferenceValidity) {
-                        leagueSchedule.add(g);
-                        failureCount = 0;
-                        System.out.println("Game added");
-                    } else {
-                        failureCount++;
-                        System.out.println("Game not added");
-                    }
-
-                    if (scheduledGames == (teamCount*gameCount)/2) {
-                        Collections.shuffle(leagueSchedule);
-                        return leagueSchedule;
-                    }
-
-                    if (failureCount == 100) {
-                        leagueSchedule = new ArrayList<Game>();
-                        scheduledGames = 0;
-                        failureCount = 0;
-                        Collections.shuffle(teamList);
-                        System.out.println("Schedule generation failed, retrying...");
-                    }
-                }
-            }
-        }
-        Collections.shuffle(leagueSchedule);
-        return leagueSchedule;
     }
 
     // public ArrayList<Game> setLeagueSchedule() {
@@ -124,7 +72,7 @@ public class League {
     //        int homeNum = (int) (Math.random()*teamCount);
     //        int awayNum = (int) (Math.random()*teamCount);
 
-    //        Game g = new Game(ls.size(), teamList.get(homeNum), teamList.get(awayNum));
+    //        Game g = new Game(teamList.get(homeNum), teamList.get(awayNum));
 
     //        boolean equalValidity = ValidityTests.equalValidity(g);
 

@@ -2,22 +2,30 @@ package src;
 
 public class Conference {
      
+    private ArrayList<Team> teamList;
     private String name;
     private int requiredGames;
-    private int size;
 
-    public Conference (String n, int rg, int s) {
-        name = n;
-        requiredGames = rg;
-        size = s;
+    public Conference (String name, int requiredGames) {
+        teamList = new ArrayList<Team>();
+        this.name = name;
+        this.requiredGames = requiredGames;
+    }
+
+    public void addTeam(Team t) {
+        teamList.add(t);
     }
 
     public int getRequiredGames() {
         return requiredGames;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public int getSize() {
-        return size;
+        return teamList.size();
     }
 
     // public ArrayList<Game> requiredGames() {

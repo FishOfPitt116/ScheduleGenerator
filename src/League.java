@@ -6,13 +6,16 @@ import java.util.Collections;
 public class League {
 
     private Settings settings;
+    private Conference[] list;
 
-    private ArrayList<Game> leagueSchedule;
-
-    public League(Settings s) {
+    public League(Settings s, int sz) {
         settings = s;
+        list = new Conference[sz];
+    }
 
-        leagueSchedule = setLeagueSchedule();
+    public League(Settings s, Conference[] l) {
+        settings = s;
+        list = l;
     }
 
 

@@ -16,9 +16,9 @@ public class Game {
     //     return date;
     // }
 
-    public String getCalendarDate() {
-        return "Algorithm not yet finalized";
-    }
+    // public String getCalendarDate() {
+    //     return "Algorithm not yet finalized";
+    // }
 
     public Team getHome() {
         return home;

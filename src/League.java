@@ -60,6 +60,8 @@ public class League {
         ArrayList<Game> ls = new ArrayList<Game>();
         int scheduleSize = (settings.getGameCount() * settings.getLeagueSize())/2;
         int failureCount = 0;
+
+        return ls;
     }
 
     // public ArrayList<Game> setLeagueSchedule() {

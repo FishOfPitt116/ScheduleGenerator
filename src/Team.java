@@ -2,78 +2,62 @@ package src;
 
 import java.util.ArrayList;
 
+/**
+ * This Team class represents a Team in a given league and/or conference
+ * for my schedule generation algorithm.
+ * 
+ * @author fishofpitt116
+ * @version 1.0
+ * @since 2-7-2021
+ */
 public class Team {
+    private String location;
     private String name;
-    private ArrayList<Game> schedule;
-    private Conference membership;
+    private int teamId;
     
-    public Team(String n) {
+    public Team(String l, String n, int id) {
+        location = l;
         name = n;
-        schedule = new ArrayList<Game>();
-        membership = null;
+        teamId = id;
     }
 
-    public Team(String n, Conference m) {
-        name = n;
-        schedule = new ArrayList<Game>();
-        membership = m;
+    /**
+     * Gets the Team's home location
+     * @return location
+     */
+    public String getLocation() {
+        return location;
     }
 
-    public String toString() {
+    /**
+     * Gets the Team's nickname
+     * @return name
+     */
+    public String getName() {
         return name;
     }
 
+    /**
+     * Gets the Team's ID, as will be defined when the program runs
+     * @return team ID
+     */
+    public int getId() {
+        return teamId;
+    }
+
+    /**
+     * String representation of the team's name; the concatenation of the home location and nickname
+     * @return a string representation of Team
+     */
+    public String toString() {
+        return location + " " + name;
+    }
+
+    /**
+     * Determines whether this Team object is "equal to" some other by determining equality of ID numbers
+     * @return true if the Team is the same as the t argument, false otherwise
+     */
     public boolean equals(Team t) {
-        return t.toString().equals(name);
-    }
-
-    public ArrayList<Game> getSchedule() {
-        return schedule;
-    }
-
-    public int scheduleSize() {
-        return schedule.size();
-    }
-
-    public void addToSchedule(Game g) {
-        schedule.add(g);
-    }
-
-    public void clearSchedule() {
-        schedule = new ArrayList<Game>();
-    }
-
-    public Conference getConference() {
-        return membership;
-    }
-
-    public int homeGamesScheduled() {
-        int counter = 0;
-        for (int i = 0; i < schedule.size(); i++) {
-            if (schedule.get(i).getHome().equals(this)) {
-                counter++;
-            }
-        }
-
-        return counter;
-    }
-
-    public int awayGamesScheduled() {
-        int counter = 0;
-        for (int i = 0; i < schedule.size(); i++) {
-            if (schedule.get(i).getAway().equals(this)) {
-                counter++;
-            }
-        }
-
-        return counter; 
-    }
-
-    public void printTeamSchedule() {
-        for (int i = 0; i < schedule.size(); i++) {
-            if (i == 0)
-                System.out.println(this.toString() + " Team Schedule:");
-            System.out.println(schedule.get(i).toString());
-        }
+        return t.getId() == this.getId();
     }
 }
